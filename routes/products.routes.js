@@ -8,4 +8,6 @@ router.get('/products', productsController.getAllProducts);
 
 router.get('/products/:id', productsController.getProductDetails);
 
+router.get('/search' , productsController.getSearchDetails)
+
 module.exports = router;

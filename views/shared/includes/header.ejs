@@ -1,16 +1,40 @@
 <header id="main-header">
   <div id="logo"><a href="/">Bookmark</a></div>
-  <nav>
-    <%- include('nav-items') %>
-  </nav>
+  <div class="search-field">
+    <input
+      class="input-inset"
+      type="text"
+      placeholder="Search"
+      id="search-input"
+    />
+    <button style="margin-left: 10px" class="btn" id="search-btn">
+      Search
+    </button>
+  </div>
+  <nav><%- include('nav-items') %></nav>
   <button id="mobile-menu-btn">
     <span></span>
     <span></span>
     <span></span>
   </button>
 </header>
+
 <aside id="mobile-menu">
-  <nav>
-    <%- include('nav-items') %>
-  </nav>
+  <nav><%- include('nav-items') %></nav>
+  <input
+    class="input-inset"
+    type="text"
+    placeholder="Search"
+    id="search-input"
+  />
+  <button style="margin-top: 10px" class="btn" id="search-btn">Search</button>
 </aside>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#search-btn").click(function () {
+      window.location.href = `http://localhost:3000/search?searchstring=${$(
+        "#search-input"
+      ).val()}`;
+    });
+  });
+</script>

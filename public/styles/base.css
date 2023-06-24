@@ -43,12 +43,14 @@ body {
   background-color: var(--color-gray-500);
   color: var(--color-gray-100);
   margin: 0;
+  
 }
 
 main {
   width: 90%;
-  max-width: 50rem;
+  max-width: 65rem;
   margin: 0 auto;
+  min-height: 100vh;
 }
 
 ul, 
@@ -113,3 +115,31 @@ a {
   background-color: var(--color-primary-500);
   color: var(--color-primary-500-contrast);
 }
+
+footer {
+  background-color: #211f1f;
+  padding: 20px 0;
+  text-align: center;
+  color: #e8dada;
+  font-size: 14px;
+}
+
+footer h4 {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+footer p {
+  margin-bottom: 15px;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+footer li {
+  margin-bottom: 5px;
+}
+
