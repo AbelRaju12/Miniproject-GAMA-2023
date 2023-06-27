@@ -40,6 +40,10 @@
         <input type="text" id="street" name="street" value="<%= inputData.street %>" required>
       </p>
       <p>
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" value="<%= inputData.city %>" required>
+      </p>
+      <p>
         <label for="postal">Postal Code</label>
         <input 
           type="text" 
@@ -51,8 +55,15 @@
           required>
       </p>
       <p>
-        <label for="city">City</label>
-        <input type="text" id="city" name="city" value="<%= inputData.city %>" required>
+        <label for="Contact">Contact</label>
+        <input 
+          type="text" 
+          id="phone" 
+          name="phone" 
+          minlength="10" 
+          maxlength="10" 
+          value="<%= inputData.phone %>"
+          required>
       </p>
       <button class="btn">Create Account</button>
       <p id="switch-form"><a href="/login">Login instead</a></p>

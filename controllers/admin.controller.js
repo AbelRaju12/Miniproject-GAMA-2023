@@ -16,6 +16,9 @@ function getNewProduct(req, res) {
 }
 
 async function createNewProduct(req, res, next) {
+  console.log({
+    ...req.body
+  });
   const product = new Product({
     ...req.body,
     image: req.file.filename,

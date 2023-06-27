@@ -12,18 +12,18 @@
 
     <img src="" alt="Selected image.">
   </div>
-  <input type="text" id="type" name="type" value="admin" hidden>
+  
   <input type="text" name="uid" id="uid" value="<%= locals.uid %>" hidden>
   <p>
-    <label for="summary">Summary</label>
-    <input type="text" id="summary" name="summary" value="<%= product.summary %>" required maxlength="250">
+    <label for="summary">Seller Details</label>
+    <input type="text" id="summary" name="summary" value="<%= product.summary %>" required maxlength="250" placeholder="Include Seller Name: and Contact No.:" >
   </p>
 
   <p>
     <label for="price">Price</label>
     <input type="number" id="price" name="price" value="<%= product.price %>" min="0" step="1" required>
   </p>
-
+<input type="text" id="type" name="type" value="user" hidden>
   <p>
     <label for="description">Description</label>
     <textarea id="description" name="description" rows="7" required><%= product.description %></textarea>

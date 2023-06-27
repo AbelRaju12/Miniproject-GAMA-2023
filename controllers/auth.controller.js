@@ -14,8 +14,9 @@ function getSignup(req, res) {
       confirmpassword: '',
       fullname: '',
       street: '',
-      postal: '',
       city: '',
+      postal: '',
+      phone: '',
     };
   }
 
@@ -30,8 +31,9 @@ async function signup(req, res, next) {
     confirmpassword: req.body['confirm-password'],    
     fullname: req.body.fullname,
     street: req.body.street,
-    postal: req.body.postal,
     city: req.body.city,
+    postal: req.body.postal,
+    phone: req.body.phone,
   };
 
   if (
@@ -40,8 +42,9 @@ async function signup(req, res, next) {
       req.body.password,
       req.body.fullname,
       req.body.street,
+      req.body.city,
       req.body.postal,
-      req.body.city
+      req.body.phone,
     ) ||
     !validation.emailIsConfirmed(req.body.email, req.body['confirm-email'])
       ||
@@ -66,8 +69,9 @@ async function signup(req, res, next) {
     req.body.password,
     req.body.fullname,
     req.body.street,
+    req.body.city,
     req.body.postal,
-    req.body.city
+    req.body.phone,
   );
 
   try {

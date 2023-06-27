@@ -10,7 +10,13 @@
       <div id="product-info">
         <h1><%= product.title %></h1>
         <p>Rs.<%= product.price %></p>
-        <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
+        <% if (product.type == "user") { %>
+          <button class="btn" >Contact Seller</button>
+          <p><%= product.summary %></p>
+        <% } else { %>
+          <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>" onclick="this.disabled=true;">Add to Cart</button>
+        <% } %>
+        
       </div>
     </header>
     

@@ -7,7 +7,9 @@ class Product {
     this.title = productData.title;
     this.summary = productData.summary;
     this.price = +productData.price;
+    this.uid = productData.uid;
     this.description = productData.description;
+    this.type = productData.type
     this.image = productData.image; // the name of the image file
     this.updateImageData();
     if (productData._id) {
@@ -59,7 +61,16 @@ class Product {
       return searchResult.map(function (productDocument) {
         return new Product(productDocument);
       });
-  }
+    }
+    static async findProductByUserId(uid){
+      const products = await db.getDb().collection("products").find({
+        uid : uid
+      }).toArray()
+      return products.map(function (productDocument) {
+        return new Product(productDocument);
+      });
+    }
+
 
   static async findMultiple(ids) {
     const productIds = ids.map(function (id) {
@@ -76,7 +87,6 @@ class Product {
       return new Product(productDocument);
     });
   }
-
   updateImageData() {
     this.imagePath = `product-data/images/${this.image}`;
     this.imageUrl = `/products/assets/images/${this.image}`;
@@ -89,6 +99,8 @@ class Product {
       price: this.price,
       description: this.description,
       image: this.image,
+      uid : this.uid,
+      type : this.type
     };
 
     if (this.id) {
