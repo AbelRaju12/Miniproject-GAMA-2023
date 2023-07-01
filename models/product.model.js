@@ -62,6 +62,7 @@ class Product {
         return new Product(productDocument);
       });
     }
+
     static async findProductByUserId(uid){
       const products = await db.getDb().collection("products").find({
         uid : uid

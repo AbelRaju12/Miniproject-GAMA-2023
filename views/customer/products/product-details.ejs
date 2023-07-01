@@ -11,7 +11,7 @@
         <h1><%= product.title %></h1>
         <p>Rs.<%= product.price %></p>
         <% if (product.type == "user") { %>
-          <button class="btn" >Contact Seller</button>
+          <label class="btn" >Contact Seller</label>
           <p><%= product.summary %></p>
         <% } else { %>
           <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>" onclick="this.disabled=true;">Add to Cart</button>

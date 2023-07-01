@@ -60,7 +60,7 @@ async function updateProduct(req, res, next) {
     return;
   }
 
-  res.redirect('/admin/products');
+  res.redirect('/');
 }
 
 async function deleteProduct(req, res, next) {

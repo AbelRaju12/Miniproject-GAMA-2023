@@ -52,7 +52,7 @@ async function updateCartItem(event) {
 
   for (const cartBadgeElement of cartBadgeElements) {
     cartBadgeElement.textContent =
-      responseData.updatedCartData.newTotalQuantity;
+      responseData.updatedCartData.quantity;
   }
 }
 

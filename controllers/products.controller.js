@@ -50,7 +50,7 @@ async function getSearchDetails(req, res, next) {
     const searchString = req.query.searchstring;
     const products = await Product.searchProduct(searchString);
     res.render("customer/products/search-product", { products: products });
-  } catch {
+  } catch (error) {
     next(error);
   }
 }
