@@ -1,6 +1,9 @@
 Mini project | E-commerce website | 2023 | GAMA | CEC
-/*
-                Controllers            Views                Models           Routes
+
+
+Overview
+------------------
+
 
  Views ---> It holds all the sub folders and files with views of the website (ejs files)   
  
@@ -12,6 +15,11 @@ Mini project | E-commerce website | 2023 | GAMA | CEC
 
 
  Routes -->  Connecting(Path) all the different files(functionalities) together
+
+
+ 
+Common Terms
+------------------
 
 
 
@@ -35,36 +43,18 @@ Mini project | E-commerce website | 2023 | GAMA | CEC
  next() > forwards requests to next middleware line
 
  session() >pieces of data stored on server connected via cookies
-|
-|_conect_mongodb-session to store sessions on database :: This module exports a single function which takes an instance of connect (or Express)
-                                                         and returns a MongoDBStore class that can be used to store sessions in MongoDB.
-|_express-session  :: express-session is a middleware module in Express. js that allows you to create sessions in your web application. It stores session data on the server side,
-                       using a variety of different storage options, and allows you to track the activity of a user across requests.
 
 
-Services & API
+Services & API & APP.JS
 ------------------
 
 Services >enhances the website
-API
+API > Application program interface
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+conect_mongodb-session to store sessions on database :: This module exports a single function which takes an instance of connect (or Express)
+                                                         and returns a MongoDBStore class that can be used to store sessions in MongoDB.
+express-session  :: express-session is a middleware module in Express. js that allows you to create sessions in your web application. It stores session data on the server side,
+                       using a variety of different storage options, and allows you to track the activity of a user across requests.
 
 //NodeJS is runtime-environment for Javascript
 
@@ -93,46 +83,3 @@ app.use('/admin',adminRoutes); //anyreq with /admin will only work
 app.set('view engine','ejs');  //activating and setting options. setting ejs.
 app.set('views',path.join(__dirname,'views')); //path is builtin nodejs. __dirname is global folder and then to views folder.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
