@@ -37,6 +37,7 @@ app.use(csrf());
 
 app.use(cartMiddleware);
 app.use(updateCartPricesMiddleware);
+// Add a line
 
 app.use(addCsrfTokenMiddleware);
 app.use(checkAuthStatusMiddleware);
