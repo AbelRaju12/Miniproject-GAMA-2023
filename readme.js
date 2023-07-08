@@ -1,3 +1,4 @@
+Mini project | E-commerce website | 2023 | GAMA | CEC
 /*
                 Controllers            Views                Models           Routes
 
