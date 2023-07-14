@@ -1,4 +1,4 @@
-Mini project | E-commerce website | 2023 | GAMA | CEC
+# Mini project | E-commerce website | 2023 | GAMA | CEC
 
 
 Overview
