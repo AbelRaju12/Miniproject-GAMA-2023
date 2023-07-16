@@ -12,5 +12,29 @@
         </li>
       <% } %>
     </ul>
+    <div style="display: flex; justify-content: center;align-items: center;padding: 3rem;">
+      <div class="pagination:container">
+        
+        <% for(var i=1; i <= paginateLength.length; i++) { %>
+          <div class="pagination:number" id="<%=i %>">
+            <a href="/products?limit=12&pageNumber=<%=i-1%>"><%= i %></a>
+          </div>
+       <% } %>
+        
+        
+        
+        
+      </div>
+      
+      <svg class="hide">
+        <symbol id="left" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></symbol>
+        <symbol id="right" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></symbol>
+      </svg>
+    </div>
   </main>
 <%- include('../../shared/includes/footer') %>
+
+<script >
+  let current = `<%= current%>`
+  document.getElementById(`${parseInt(current)}`).classList.add("active")
+</script>

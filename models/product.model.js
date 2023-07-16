@@ -9,7 +9,7 @@ class Product {
     this.price = +productData.price;
     this.uid = productData.uid;
     this.description = productData.description;
-    this.type = productData.type
+    this.type = productData.type;
     this.image = productData.image; // the name of the image file
     this.updateImageData();
     if (productData._id) {
@@ -38,40 +38,77 @@ class Product {
 
     return new Product(product);
   }
-
   static async findAll() {
     const products = await db.getDb().collection("products").find().toArray();
-
     return products.map(function (productDocument) {
       return new Product(productDocument);
     });
+  }
+  static async paginate(limit_, pageNumber_) {
+    let PostModel = db.getDb().collection("products");
+    try {
+      const pageNumber = parseInt(pageNumber_) || 0;
+      const limit = parseInt(limit_) || 5;
+      const result = {};
+      const totalPosts = await PostModel.find().count();
+      let startIndex = pageNumber * limit;
+      const endIndex = (pageNumber + 1) * limit;
+      result.totalPosts = totalPosts;
+      if (startIndex > 0) {
+        result.previous = {
+          pageNumber: pageNumber - 1,
+          limit: limit,
+        };
+      }
+      if (endIndex < (await PostModel.find().count())) {
+        result.next = {
+          pageNumber: pageNumber + 1,
+          limit: limit,
+        };
+      }
+      result.data = await PostModel.find()
+        .sort("_id")
+        .skip(startIndex)
+        .limit(limit)
+        .toArray();
+      result.rowsPerPage = limit;
+      return result.data.map(function (productDocument) {
+        return new Product(productDocument);
+      });
+    } catch (error) {
+      console.log(error);
+      return { msg: "Sorry, something went wrong" };
+    }
   }
 
   static async searchProduct(searchString) {
     const query = { $text: { $search: searchString } };
     const sort = { score: { $meta: "textScore" } };
-    
 
     const searchResult = await db
       .getDb()
       .collection("products")
       .find(query)
-      .sort(sort).toArray()
-     
-      return searchResult.map(function (productDocument) {
-        return new Product(productDocument);
-      });
-    }
+      .sort(sort)
+      .toArray();
 
-    static async findProductByUserId(uid){
-      const products = await db.getDb().collection("products").find({
-        uid : uid
-      }).toArray()
-      return products.map(function (productDocument) {
-        return new Product(productDocument);
-      });
-    }
+    return searchResult.map(function (productDocument) {
+      return new Product(productDocument);
+    });
+  }
 
+  static async findProductByUserId(uid) {
+    const products = await db
+      .getDb()
+      .collection("products")
+      .find({
+        uid: uid,
+      })
+      .toArray();
+    return products.map(function (productDocument) {
+      return new Product(productDocument);
+    });
+  }
 
   static async findMultiple(ids) {
     const productIds = ids.map(function (id) {
@@ -100,8 +137,8 @@ class Product {
       price: this.price,
       description: this.description,
       image: this.image,
-      uid : this.uid,
-      type : this.type
+      uid: this.uid,
+      type: this.type,
     };
 
     if (this.id) {

@@ -31,7 +31,7 @@ async function createNewProduct(req, res, next) {
     return;
   }
 
-  res.redirect('/admin/products');
+  res.redirect('/admin/products?limit=12&pageNumber=<%=i-1%>');
 }
 
 async function getUpdateProduct(req, res, next) {

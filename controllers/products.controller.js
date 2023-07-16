@@ -3,7 +3,23 @@ const Product = require("../models/product.model");
 async function getAllProducts(req, res, next) {
   try {
     const products = await Product.findAll();
-    res.render("customer/products/all-products", { products: products });
+    const paginate = await Product.paginate(
+      req.query.limit,
+      req.query.pageNumber
+    );
+    let limit = req.query.limit;
+    let paginateLength = [];
+    for (let i = 1; i <= parseInt(products.length / limit); i++) {
+      paginateLength.push(i);
+    }
+    if (products.length % limit != 0) {
+      paginateLength.push(paginateLength.length + 1);
+    }
+    res.render("customer/products/all-products", {
+      products: paginate,
+      paginateLength,
+      current: parseInt(req.query.pageNumber) + 1,
+    });
   } catch (error) {
     next(error);
   }
@@ -61,5 +77,5 @@ module.exports = {
   getNewProduct,
   getSearchDetails,
   createNewProduct,
-  getManageProducts
+  getManageProducts,
 };
