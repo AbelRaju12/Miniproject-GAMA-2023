@@ -78,6 +78,7 @@ async function deleteProduct(req, res, next) {
 async function getOrders(req, res, next) {
   try {
     const orders = await Order.findAll();
+    console.log(orders[0].payment);
     res.render('admin/orders/admin-orders', {
       orders: orders
     });

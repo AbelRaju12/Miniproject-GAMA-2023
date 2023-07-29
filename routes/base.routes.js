@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', function(req, res) {
-  res.redirect('/products');
+  res.redirect('/products?limit=12&pageNumber=0');
 });
 
 router.get('/401', function(req, res) {

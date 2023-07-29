@@ -16,8 +16,7 @@ async function getOrders(req, res) {
     next(error);
   }
 }
-
-async function addOrder(req, res, next) {
+async function codAddOrder(req, res, next) {
   const cart = res.locals.cart;
 
   let userDocument;
@@ -41,6 +40,35 @@ async function addOrder(req, res, next) {
   });
 
   req.session.cart = null;
+  res.redirect(
+    `http://localhost:3000/orders/success?cart=${JSON.stringify(
+      tempCart
+    )}&paymentmode=cod`
+  );
+}
+async function addOrder(req, res, next) {
+  const cart = res.locals.cart;
+
+  let userDocument;
+  try {
+    userDocument = await User.findById(res.locals.uid);
+  } catch (error) {
+    return next(error);
+  }
+
+  const order = new Order(cart, userDocument);
+  let orderDetails;
+  try {
+    orderDetails = await order.save();
+  } catch (error) {
+    next(error);
+    return;
+  }
+  let tempCart = [];
+  cart.items.map(async (item) => {
+    tempCart.push(item.product.id);
+  });
+  req.session.cart = null;
   const session = await stripe.checkout.sessions.create({
     line_items: cart.items.map(function (item) {
       return {
@@ -58,15 +86,26 @@ async function addOrder(req, res, next) {
     mode: "payment",
     success_url: `http://localhost:3000/orders/success?cart=${JSON.stringify(
       tempCart
-    )}`,
+    )}&paymentmode=stripe&orderId=${orderDetails.insertedId.toString()}`,
     cancel_url: `http://localhost:3000/orders/failure`,
   });
 
   res.redirect(303, session.url);
 }
-
-function getSucess(req, res) {
+async function paymentUpdate(req, res) {
+  let { orderId } = req.body;
+  await Order.updatePayment(orderId);
+  res.status(200).json({
+    message: "payment updated",
+  });
+}
+async function getSucess(req, res) {
   let cart = JSON.parse(req.query.cart);
+  let { paymentmode, orderId } = req.query;
+  console.log(orderId);
+  if (paymentmode === "stripe") {
+    let update = await Order.updatePayment(orderId);
+  }
   cart.map(async (item) => {
     try {
       let product = await Product.findById(item);
@@ -87,4 +126,6 @@ module.exports = {
   getOrders: getOrders,
   getSucess: getSucess,
   getFailure: getFailure,
+  codAddOrder,
+  paymentUpdate
 };

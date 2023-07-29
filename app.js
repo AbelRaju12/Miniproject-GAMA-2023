@@ -1,5 +1,5 @@
 const path = require('path');
-
+const cors = require('cors')
 const express = require('express');
 const csrf = require('csurf');
 const expressSession = require('express-session');
@@ -21,7 +21,7 @@ const cartRoutes = require('./routes/cart.routes');
 const ordersRoutes = require('./routes/orders.routes');
 
 const app = express();
-
+app.use(cors())
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 

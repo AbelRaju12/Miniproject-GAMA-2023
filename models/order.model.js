@@ -1,20 +1,28 @@
-const mongodb = require('mongodb');
+const mongodb = require("mongodb");
 
-const db = require('../data/database');
+const db = require("../data/database");
 
 class Order {
   // Status => pending, fulfilled, cancelled
-  constructor(cart, userData, status = 'pending', date, orderId) {
+  constructor(
+    cart,
+    userData,
+    status = "pending",
+    payment = "pending",
+    date,
+    orderId
+  ) {
     this.productData = cart;
     this.userData = userData;
     this.status = status;
+    this.payment = payment;
     this.date = new Date(date);
     if (this.date) {
-      this.formattedDate = this.date.toLocaleDateString('en-US', {
-        weekday: 'short',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
+      this.formattedDate = this.date.toLocaleDateString("en-US", {
+        weekday: "short",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
       });
     }
     this.id = orderId;
@@ -25,6 +33,7 @@ class Order {
       orderDoc.productData,
       orderDoc.userData,
       orderDoc.status,
+      orderDoc.payment,
       orderDoc.date,
       orderDoc._id
     );
@@ -37,21 +46,20 @@ class Order {
   static async findAll() {
     const orders = await db
       .getDb()
-      .collection('orders')
+      .collection("orders")
       .find()
       .sort({ _id: -1 })
       .toArray();
 
     return this.transformOrderDocuments(orders);
   }
-
   static async findAllForUser(userId) {
     const uid = new mongodb.ObjectId(userId);
 
     const orders = await db
       .getDb()
-      .collection('orders')
-      .find({ 'userData._id': uid })
+      .collection("orders")
+      .find({ "userData._id": uid })
       .sort({ _id: -1 })
       .toArray();
 
@@ -61,18 +69,24 @@ class Order {
   static async findById(orderId) {
     const order = await db
       .getDb()
-      .collection('orders')
+      .collection("orders")
       .findOne({ _id: new mongodb.ObjectId(orderId) });
 
     return this.transformOrderDocument(order);
   }
-
+  static async updatePayment(orderId) {
+    const temporderId = new mongodb.ObjectId(orderId);
+    return db
+      .getDb()
+      .collection("orders")
+      .updateOne({ _id: temporderId }, { $set: { payment: "paid" } });
+  }
   save() {
     if (this.id) {
       const orderId = new mongodb.ObjectId(this.id);
       return db
         .getDb()
-        .collection('orders')
+        .collection("orders")
         .updateOne({ _id: orderId }, { $set: { status: this.status } });
     } else {
       const orderDocument = {
@@ -80,9 +94,10 @@ class Order {
         productData: this.productData,
         date: new Date(),
         status: this.status,
+        payment: this.payment,
       };
 
-      return db.getDb().collection('orders').insertOne(orderDocument);
+      return db.getDb().collection("orders").insertOne(orderDocument);
     }
   }
 }

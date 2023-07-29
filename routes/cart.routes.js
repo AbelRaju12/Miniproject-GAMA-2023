@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get('/', cartController.getCart); // /cart/
 
+router.get('/checkout' , cartController.getCheckout);
+
 router.post('/items', cartController.addCartItem); // /cart/items
 
 router.patch('/items', cartController.updateCartItem);
