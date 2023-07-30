@@ -38,9 +38,9 @@
         Payment Information  =  <%= order.payment %> 
       </h1>
       <% if (order.payment === 'paid') { %>
-        <button class="btn btn-alt" style="background-color: green;color: black;">paid</button>
+        <button class="btn btn-alt">Paid</button>
       <% } else { %>
-        <button class="btn btn-alt" id="paymentUpdate">update payment</button>
+        <button class="btn btn-alt" id="paymentUpdate">Click here if Payment completed</button>
       <% } %>
     </section>
   <% } %>
