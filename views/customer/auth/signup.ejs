@@ -24,11 +24,11 @@
       </p>
       <p>
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" minlength="6" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*+`~'=?\|\]\[\(\)\-<>/]).{8,}" value="<%= inputData.password %>" required>
+        <input type="password" id="password" name="password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" value="<%= inputData.password %>" required>
       </p>      
       <p>
         <label for="password">Confirm Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" minlength="6" value="<%= inputData.confirmpassword %>" required>
+        <input type="password" id="confirm-password" name="confirm-password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" value="<%= inputData.confirmpassword %>" required>
         <p> Note:
           Password must contain upper-case and lower-case letters, digits and Special Character.</p>
       </p>
